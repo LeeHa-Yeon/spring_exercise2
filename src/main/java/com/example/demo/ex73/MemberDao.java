@@ -24,6 +24,11 @@ public class MemberDao {
         jdbcTemplate.update("update MEMBER set Name = ?, PASSWORD =?"+"where EMAIL =?", member.getName(),member.getPassword(),member.getEmail());
     }
 
+    public void insert(final Member member){
+        jdbcTemplate.update("insert into MEMBER(EMAIL,PASSWORD,NAME,REGDATE)"+"values(?,?,?,?)", member.getEmail(),member.getPassword(),member.getName(),member.getRegisterDate());
+
+    }
+
     public Member selectByEmail(String email){
         List<Member> results = jdbcTemplate.query("select * from MEMBER where email = ?",
                 new RowMapper<Member>() {
