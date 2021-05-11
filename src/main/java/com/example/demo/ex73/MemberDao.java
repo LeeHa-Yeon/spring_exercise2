@@ -9,9 +9,19 @@ import java.util.Collection;
 import java.util.List;
 
 public class MemberDao {
+    // 멤버 테이블에 관한 거니까 멤버다오에 구현하는거임
     private JdbcTemplate jdbcTemplate;
     public MemberDao(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public int count(){
+        Integer count = jdbcTemplate.queryForObject("select count(*) from MEMBER",Integer.class);
+        return count;
+    }
+
+    public void update(Member member){
+        jdbcTemplate.update("update MEMBER set Name = ?, PASSWORD =?"+"where EMAIL =?", member.getName(),member.getPassword(),member.getEmail());
     }
 
     public Member selectByEmail(String email){
